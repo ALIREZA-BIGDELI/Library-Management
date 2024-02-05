@@ -9,7 +9,8 @@ public class ControlOfTerminal {
             Scanner scanner = new Scanner(System.in);
             int control;
             System.out.println("1. Add User");
-            System.out.println("2. Exit");
+            System.out.println("2. Remove User");
+            System.out.println("3. Exit");
             System.out.print("Please select the desired option: ");
             control = scanner.nextInt();
             switch (control){
@@ -24,6 +25,13 @@ public class ControlOfTerminal {
                     continue;
 
                 case 2:
+                    System.out.print("Enter the user ID you want to delete: ");
+                    int id = scanner.nextInt();
+                    user.deleteUser(id);
+                    continue;
+
+                case 3:
+                    user.deleteUser(1);
                     user.writeID();
                     break menu;
             }

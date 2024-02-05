@@ -41,6 +41,46 @@ public class User {
         }
     }
 
+    public void deleteUser(int id) throws IOException {
+        Scanner scanner = new Scanner(new File(userFile.getPath()));
+        ArrayList<String> contentsOfFile = new ArrayList<>();
+        while (scanner.hasNext())
+            contentsOfFile.add(scanner.nextLine());
+
+
+        boolean isDeleted = false;
+        for(int i = 0; i < contentsOfFile.size() && isDeleted == false; i++){
+            int start = 3;
+            int end = contentsOfFile.get(i).indexOf(" ");
+            String temp = contentsOfFile.get(i).substring(start , end);
+            int checkid = Integer.valueOf(temp);
+            if(checkid == id) {
+                contentsOfFile.remove(i);
+                isDeleted = true;
+            }
+        }
+
+        if(isDeleted){
+            FileWriter fileWriter = new FileWriter(userFile.getPath());
+            fileWriter.write("");
+            fileWriter.close();
+
+            FileWriter fWriterWithAppend = new FileWriter(userFile.getPath() , true);
+            for(int i = 0; i < contentsOfFile.size(); i++)
+                fWriterWithAppend.write(contentsOfFile.get(i) + "\n");
+
+            fWriterWithAppend.close();
+            System.out.println("user deleted");
+            System.out.println("-----------");
+            return;
+        }
+
+        else {
+            System.out.println("user not found");
+            System.out.println("-----------");
+        }
+    }
+
     private boolean isEmailDuplicate(String email) throws FileNotFoundException {
         Scanner scanner = new Scanner(userFile);
         while (scanner.hasNextLine()){
@@ -58,7 +98,6 @@ public class User {
         FileWriter fileWriter = new FileWriter("Information/user_id.txt");
         fileWriter.write(String.valueOf(user_id));
         fileWriter.close();
-
     }
 }
 
