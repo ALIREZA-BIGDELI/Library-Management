@@ -19,12 +19,12 @@ public class User {
         }
     }
 
-    public void addUser(String name , String email , String password) throws IOException {
+    public void addUser(String userName, String email , String password) throws IOException {
         if(isEmailDuplicate(email) == false) {
-            FileWriter fileWriter = new FileWriter(userFile.getPath(), true);
+            FileWriter fileWriter = new FileWriter(this.userFile.getPath(), true);
             fileWriter.write("ID:" + user_id);
             fileWriter.write(" ");
-            fileWriter.write("name:" + name);
+            fileWriter.write("Username:" + userName);
             fileWriter.write(" ");
             fileWriter.write("email:" + email);
             fileWriter.write(" ");
@@ -81,6 +81,43 @@ public class User {
         }
     }
 
+    public void printInformationOfUser(int id) throws FileNotFoundException {
+        Scanner scanner = new Scanner(this.userFile);
+        while (scanner.hasNext()){
+            String line = scanner.nextLine();
+            boolean checkId = checkIdOfUser(line , id);
+            if(checkId){
+                int start = 0;
+                int end = line.indexOf("password:");
+                String informationOfUser = line.substring(start , end-1);
+                System.out.println(informationOfUser);
+                System.out.println("-----------");
+                return;
+            }
+        }
+        System.out.println("user not found");
+        System.out.println("-----------");
+
+    }
+
+    public void printInformationOfAllUsers() throws FileNotFoundException {
+        Scanner scanner = new Scanner(this.userFile);
+
+        if(scanner.hasNext() == false){
+            System.out.println("no user exists");
+            return;
+        }
+
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            int start = 0;
+            int end = line.indexOf("password:");
+            String informationOfUser = line.substring(start, end - 1);
+            System.out.println(informationOfUser);
+        }
+        System.out.println("-----------");
+    }
+
     private boolean isEmailDuplicate(String email) throws FileNotFoundException {
         Scanner scanner = new Scanner(userFile);
         while (scanner.hasNextLine()){
@@ -98,6 +135,16 @@ public class User {
         FileWriter fileWriter = new FileWriter("Information/user_id.txt");
         fileWriter.write(String.valueOf(user_id));
         fileWriter.close();
+    }
+
+    private boolean checkIdOfUser(String str , int id){
+        int start = 3;
+        int end = str.indexOf(" ");
+        String temp = str.substring(start , end);
+        int checkid = Integer.valueOf(temp);
+        if(checkid == id)
+            return true;
+        return false;
     }
 }
 
