@@ -13,7 +13,8 @@ public class ControlOfTerminal {
             System.out.println("3. Show All User");
             System.out.println("4. Remove User");
             System.out.println("5. Add Book");
-            System.out.println("6. Exit");
+            System.out.println("8. Remove Book");
+            System.out.println("9. Exit");
             System.out.print("Please select the desired option: ");
             control = scanner.nextInt();
             switch (control){
@@ -68,8 +69,16 @@ public class ControlOfTerminal {
                         break menu;
                     continue;
 
+                case 8:
+                    System.out.print("Enter the book's ISBN you want to delete: ");
+                    String isbn1 = String.valueOf(scanner.nextInt());
+                    book.deleteBook(isbn1);
 
-                case 6:
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+                case 9:
                     break menu;
             }
         }
