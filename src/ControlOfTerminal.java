@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class ControlOfTerminal {
 
-    public ControlOfTerminal(User user) throws IOException {
+    public ControlOfTerminal(User user , Book book) throws IOException {
         System.out.println("Welcome to our Library");
         menu: while (true){
             Scanner scanner = new Scanner(System.in);
@@ -12,18 +12,19 @@ public class ControlOfTerminal {
             System.out.println("2. Show User");
             System.out.println("3. Show All User");
             System.out.println("4. Remove User");
-            System.out.println("5. Exit");
+            System.out.println("5. Add Book");
+            System.out.println("6. Exit");
             System.out.print("Please select the desired option: ");
             control = scanner.nextInt();
             switch (control){
                 case 1:
                     System.out.print("Enter the User's name: ");
-                    String name = scanner.next();
+                    String userName = scanner.next();
                     System.out.print("Enter the User's email: ");
                     String email = scanner.next();
                     System.out.print("Enter a password: ");
                     String password = scanner.next();
-                    user.addUser(name , email , password);
+                    user.addUser(userName , email , password);
 
                     if(!checkContinue())
                         break menu;
@@ -55,6 +56,20 @@ public class ControlOfTerminal {
                     continue;
 
                 case 5:
+                    System.out.print("Enter the book's name: ");
+                    String bookName = scanner.next();
+                    System.out.print("Enter the book's author: ");
+                    String author = scanner.next();
+                    System.out.print("Enter the book's ISBN: ");
+                    String ISBN = scanner.next();
+                    book.addBook(bookName , author , ISBN);
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+
+                case 6:
                     break menu;
             }
         }
