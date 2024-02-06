@@ -13,6 +13,8 @@ public class ControlOfTerminal {
             System.out.println("3. Show All User");
             System.out.println("4. Remove User");
             System.out.println("5. Add Book");
+            System.out.println("6. Show Book");
+            System.out.println("7. Show All Book");
             System.out.println("8. Remove Book");
             System.out.println("9. Exit");
             System.out.print("Please select the desired option: ");
@@ -32,7 +34,7 @@ public class ControlOfTerminal {
                     continue;
 
                 case 2:
-                    System.out.print("Enter the desired user number: ");
+                    System.out.print("Enter the desired user ID: ");
                     int id = scanner.nextInt();
                     user.printInformationOfUser(id);
 
@@ -65,6 +67,21 @@ public class ControlOfTerminal {
                     String ISBN = scanner.next();
                     book.addBook(bookName , author , ISBN);
 
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+                case 6:
+                    System.out.print("Enter the desired book ISBN: ");
+                    String isbn = scanner.next();
+                    book.printInformationOfBook(isbn);
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+                case 7:
+                    book.printInformationOfAllBooks();
                     if(!checkContinue())
                         break menu;
                     continue;

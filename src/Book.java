@@ -32,6 +32,38 @@ public class Book {
         }
     }
 
+    public void printInformationOfBook(String ISBN) throws FileNotFoundException {
+        Scanner scanner = new Scanner(this.bookFile);
+        while (scanner.hasNext()){
+            String line = scanner.nextLine();
+            boolean checkISBN = checkISBNOfBook(line , ISBN);
+            if(checkISBN){
+                String informationOfBook = line;
+                System.out.println(informationOfBook);
+                System.out.println("-----------");
+                return;
+            }
+        }
+        System.out.println("book not found");
+        System.out.println("-----------");
+
+    }
+
+    public void printInformationOfAllBooks() throws FileNotFoundException {
+        Scanner scanner = new Scanner(this.bookFile);
+
+        if(scanner.hasNext() == false){
+            System.out.println("no book exists");
+            return;
+        }
+
+        while (scanner.hasNext()) {
+            String informationOfUser = scanner.nextLine();
+            System.out.println(informationOfUser);
+        }
+        System.out.println("-----------");
+    }
+
     public void deleteBook(String ISBN) throws IOException {
         Scanner scanner = new Scanner(new File(bookFile.getPath()));
         ArrayList<String> contentsOfFile = new ArrayList<>();
@@ -83,6 +115,16 @@ public class Book {
             if(ISBN.equals(extractedISBN))
                 return true;
         }
+        return false;
+    }
+
+
+    private boolean checkISBNOfBook(String str , String ISBN){
+        int start = str.indexOf("ISBN:") + "ISBN:".length();
+        int end = str.indexOf(" " , start);
+        String checkISBN = str.substring(start , end);
+        if(checkISBN.equals(ISBN))
+            return true;
         return false;
     }
 }
