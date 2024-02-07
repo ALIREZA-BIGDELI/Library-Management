@@ -24,7 +24,7 @@ public class Lending {
 
     public void borrowBook(String userID , String ISBN) throws IOException {
         int numberOfBookLoanedFromUser = numberOfBooksLoaned(userID , ISBN);
-        if(isFree(ISBN) == true && numberOfBookLoanedFromUser <= 4) {
+        if(isFree(ISBN) == true && numberOfBookLoanedFromUser <= 4 && isTheBookAvailable(ISBN)) {
             FileWriter fileWriter = new FileWriter(lendingFile.getPath(), true);
             fileWriter.write("userID:" + userID);
             fileWriter.write(" ");
@@ -47,6 +47,12 @@ public class Lending {
             System.out.println("The book is on loan");
             System.out.println("-----------");
         }
+
+        else if (isTheBookAvailable(ISBN) == false){
+            System.out.println("The book is not available");
+            System.out.println("-----------");
+        }
+
         else {
             System.out.println("You have borrowed more than the allowed book limit ");
             System.out.println("-----------");
@@ -128,6 +134,16 @@ public class Lending {
                 return false;
         }
         return true;
+    }
+
+    private boolean isTheBookAvailable(String ISBN) throws FileNotFoundException {
+        Scanner scanner = new Scanner(book.getBookFile());
+        boolean result = false;
+        while (scanner.hasNext()){
+            if (book.checkISBNOfBook(scanner.nextLine() , ISBN) == true)
+                return true;
+        }
+        return false;
     }
 
     private String getISBN(String str) throws FileNotFoundException {

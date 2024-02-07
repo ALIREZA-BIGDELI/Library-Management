@@ -15,7 +15,7 @@ public class Book {
 
     public void addBook(String name, String author , String ISBN) throws IOException {
         if(isBookDuplicate(ISBN) == false) {
-            FileWriter fileWriter = new FileWriter(this.bookFile.getPath(), true);
+            FileWriter fileWriter = new FileWriter(this.getBookFile().getPath(), true);
             fileWriter.write("name:" + name);
             fileWriter.write(" ");
             fileWriter.write("author:" + author);
@@ -33,7 +33,7 @@ public class Book {
     }
 
     public void printInformationOfBook(String ISBN) throws FileNotFoundException {
-        Scanner scanner = new Scanner(this.bookFile);
+        Scanner scanner = new Scanner(this.getBookFile());
         while (scanner.hasNext()){
             String line = scanner.nextLine();
             boolean checkISBN = checkISBNOfBook(line , ISBN);
@@ -50,7 +50,7 @@ public class Book {
     }
 
     public void printInformationOfAllBooks() throws FileNotFoundException {
-        Scanner scanner = new Scanner(this.bookFile);
+        Scanner scanner = new Scanner(this.getBookFile());
 
         if(scanner.hasNext() == false){
             System.out.println("no book exists");
@@ -65,7 +65,7 @@ public class Book {
     }
 
     public void deleteBook(String ISBN) throws IOException {
-        Scanner scanner = new Scanner(new File(bookFile.getPath()));
+        Scanner scanner = new Scanner(new File(getBookFile().getPath()));
         ArrayList<String> contentsOfFile = new ArrayList<>();
         while (scanner.hasNext())
             contentsOfFile.add(scanner.nextLine());
@@ -84,11 +84,11 @@ public class Book {
         }
 
         if(isDeleted){
-            FileWriter fileWriter = new FileWriter(bookFile.getPath());
+            FileWriter fileWriter = new FileWriter(getBookFile().getPath());
             fileWriter.write("");
             fileWriter.close();
 
-            FileWriter fWriterWithAppend = new FileWriter(bookFile.getPath() , true);
+            FileWriter fWriterWithAppend = new FileWriter(getBookFile().getPath() , true);
             for(int i = 0; i < contentsOfFile.size(); i++)
                 fWriterWithAppend.write(contentsOfFile.get(i) + "\n");
 
@@ -106,7 +106,7 @@ public class Book {
 
 
     private boolean isBookDuplicate(String ISBN) throws FileNotFoundException {
-        Scanner scanner = new Scanner(bookFile);
+        Scanner scanner = new Scanner(getBookFile());
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
             int start = line.indexOf("ISBN:") + "ISBN:".length();
@@ -119,12 +119,16 @@ public class Book {
     }
 
 
-    private boolean checkISBNOfBook(String str , String ISBN){
+    public boolean checkISBNOfBook(String str , String ISBN){
         int start = str.indexOf("ISBN:") + "ISBN:".length();
         int end = str.indexOf(" " , start);
         String checkISBN = str.substring(start , end);
         if(checkISBN.equals(ISBN))
             return true;
         return false;
+    }
+
+    public File getBookFile() {
+        return bookFile;
     }
 }
