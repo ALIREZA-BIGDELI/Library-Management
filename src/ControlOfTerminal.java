@@ -1,9 +1,10 @@
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ControlOfTerminal {
 
-    public ControlOfTerminal(User user , Book book) throws IOException {
+    public ControlOfTerminal(User user , Book book , Lending lending , History history) throws IOException {
         System.out.println("Welcome to our Library");
         menu: while (true){
             Scanner scanner = new Scanner(System.in);
@@ -16,7 +17,13 @@ public class ControlOfTerminal {
             System.out.println("6. Show Book");
             System.out.println("7. Show All Book");
             System.out.println("8. Remove Book");
-            System.out.println("9. Exit");
+            System.out.println("9. Borrow Book");
+            System.out.println("10. Return the book");
+            System.out.println("11. Show Loaned books");
+            System.out.println("12. Show History Of User");
+            System.out.println("13. Show History Of Book");
+            System.out.println("14. Exit");
+            System.out.println("15. Extract name With 'i'");
             System.out.print("Please select the desired option: ");
             control = scanner.nextInt();
             switch (control){
@@ -96,7 +103,68 @@ public class ControlOfTerminal {
                     continue;
 
                 case 9:
+                    String userID , bookID;
+                    System.out.print("Enter the user's id :");
+                    userID = scanner.next();
+                    System.out.print("Enter the book's ISBN :");
+                    bookID = scanner.next();
+                    lending.borrowBook(userID , bookID);
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+                case 10:
+                    System.out.print("Enter the ID of user: ");
+                    String idForReturn = String.valueOf(scanner.nextInt());
+                    System.out.print("Enter the ISBN of the book you want to return: ");
+                    String returnISBN = String.valueOf(scanner.nextInt());
+                    lending.returnBook(idForReturn , returnISBN);
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+
+                case 11:
+                    lending.printAllLoanedBooks();
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+
+                case 12:
+                    int userId;
+                    System.out.print("Enter the ID of user: ");
+                    userId = scanner.nextInt();
+                    history.printHistoryOfUser(String.valueOf(userId));
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+                case 13:
+                    int ISBN2;
+                    System.out.print("Enter the ISBN of Book: ");
+                    ISBN2 = scanner.nextInt();
+                    history.printHistoryOfBook(String.valueOf(ISBN2));
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
+
+                case 14:
                     break menu;
+
+                case 15:
+                    List list = user.getNameWithI();
+                    list.stream()
+                            .forEach(a -> System.out.println(list));
+
+
+                    if(!checkContinue())
+                        break menu;
+                    continue;
             }
         }
         user.writeID();
