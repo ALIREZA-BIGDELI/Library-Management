@@ -1,5 +1,4 @@
-name:advanced author:clrs ISBN:741 
-name:based author:clrs ISBN:852 
-name:da author:ajf ISBN:456 
-name:asflj author:adl;fk ISBN:789 
-name:advanced_programming author:clrs ISBN:159 
+name:Math author:tomas ISBN:123 
+name:physics author:nioton ISBN:456 
+name:chemistry author:kean ISBN:789 
+name:hafez author:Hafez ISBN:753 

@@ -95,7 +95,7 @@ public class ControlOfTerminal {
 
                 case 8:
                     System.out.print("Enter the book's ISBN you want to delete: ");
-                    String isbn1 = String.valueOf(scanner.nextInt());
+                    String isbn1 = scanner.next();
                     book.deleteBook(isbn1);
 
                     if(!checkContinue())

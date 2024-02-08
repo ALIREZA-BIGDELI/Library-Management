@@ -7,13 +7,15 @@ import java.util.Scanner;
 
 public class Lending {
 
-    User user;
-    Book book;
+    private User user;
+    private Book book;
+    private History history;
     private File lendingFile;
 
-    public Lending(User user , Book book){
+    public Lending(User user , Book book , History history){
         this.user = user;
         this.book = book;
+        this.history = history;
         lendingFile = new File("Information/Lending.txt");
         try {
             lendingFile.createNewFile();
@@ -33,15 +35,7 @@ public class Lending {
             fileWriter.close();
             System.out.println("The book was lent");
             System.out.println("-----------");
-
-
-            //add to History File
-            FileWriter fileWriterToHistory = new FileWriter("Information/History.txt" , true);
-            fileWriterToHistory.write("userID:" + userID);
-            fileWriterToHistory.write(" ");
-            fileWriterToHistory.write("bookID:" + ISBN);
-            fileWriterToHistory.write(" \n");
-            fileWriterToHistory.close();
+            history.addToHistory(userID , ISBN , true);
         }
         else if(isFree(ISBN) == false){
             System.out.println("The book is on loan");
@@ -79,6 +73,8 @@ public class Lending {
             if (checkISBN.equals(ISBN) && checkID.equals(userID)) {
                 contentsOfFile.remove(i);
                 isDeleted = true;
+
+                history.addToHistory(userID , ISBN , false);
             }
         }
 
@@ -147,15 +143,20 @@ public class Lending {
     }
 
     private String getISBN(String str) throws FileNotFoundException {
-        Scanner scanner = new Scanner(lendingFile);
-        while (scanner.hasNext()){
-            String line = scanner.nextLine();
-            int start = line.indexOf("bookID:") + "bookID:".length();
-            int end = line.indexOf(" " , start);
-            String ISBN = line.substring(start , end);
-            return ISBN;
-        }
-        return null;
+        int start = str.indexOf("bookID:") + "bookID:".length();
+        int end = str.indexOf(" " , start);
+        String ISBN = str.substring(start , end);
+        return ISBN;
+
+//        Scanner scanner = new Scanner(lendingFile);
+//        while (scanner.hasNext()){
+//            String line = scanner.nextLine();
+//            int start = line.indexOf("bookID:") + "bookID:".length();
+//            int end = line.indexOf(" " , start);
+//            String ISBN = line.substring(start , end);
+//            return ISBN;
+//        }
+//        return null;
     }
 
     private int numberOfBooksLoaned(String userID , String bookID) throws FileNotFoundException {

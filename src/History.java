@@ -1,14 +1,24 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class History {
     private File historyFile;
 
     public History(){
+        try {
         historyFile = new File("Information/History.txt");
+        historyFile.createNewFile();
+        }
+        catch (Exception e){
+
+        }
     }
 
     public void printHistoryOfUser(String userID) throws FileNotFoundException {
@@ -16,12 +26,15 @@ public class History {
         List<String> list = new ArrayList<>();
         while (scanner.hasNext())
             list.add(scanner.nextLine());
-
-        int start = list.get(0).indexOf("userID:") + "userID:".length();
-        int end = list.get(0).indexOf(" " , start);
+        AtomicInteger i = new AtomicInteger(0);
 
         list.stream()
-                .filter(a ->a.substring(start , end).equals(userID))
+                .filter(a ->{
+                    int start = list.get(i.get()).indexOf("userID:") + "userID:".length();
+                    int end = list.get(i.get()).indexOf(" " , start);
+                    i.getAndIncrement();
+                    return a.substring(start , end).equals(userID);
+                })
                 .forEach(a -> System.out.println(a));
 
     }
@@ -47,5 +60,21 @@ public class History {
         for (int i = 0; i < list.size(); i++)
             System.out.println(list.get(i));
 
+    }
+
+    public void addToHistory(String userID, String ISBN, boolean typeOfLend) throws IOException {  //if borrow the book typeOfLend = true , if return the book typeOfLend = false
+        FileWriter fileWriter = new FileWriter(this.historyFile , true);
+        if(typeOfLend == true)
+            fileWriter.write("Lending) ");
+        else
+            fileWriter.write("Take Back) ");
+        fileWriter.write("userID:" + userID);
+        fileWriter.write(" ");
+        fileWriter.write("bookID:" + ISBN);
+        fileWriter.write(" ");
+        Date date = new Date();
+        fileWriter.write("Date: " + date);
+        fileWriter.write(" \n");
+        fileWriter.close();
     }
 }
