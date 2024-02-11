@@ -1,6 +1,5 @@
 package Controller;
 
-import Controller.ControlOfTerminal;
 import Model.Book;
 import Model.History;
 import Model.Lending;

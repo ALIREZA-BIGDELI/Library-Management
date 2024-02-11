@@ -60,9 +60,7 @@ public class Lending {
         Scanner scanner = new Scanner(new File(lendingFile.getPath()));
         while (scanner.hasNext())
             contentsOfFile.add(scanner.nextLine());
-//        if(!isFree(ISBN)){
-//
-//        }
+
         boolean isDeleted = false;
         for (int i = 0; i < contentsOfFile.size() && isDeleted == false; i++) {
             int startOfUserID = contentsOfFile.get(i).indexOf("userID:") + "userID:".length();
