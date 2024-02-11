@@ -16,28 +16,28 @@ public class ControlOfTerminal {
         menu: while (true){
             Scanner scanner = new Scanner(System.in);
             int control;
-            System.out.println("1. Add Model.User");
-            System.out.println("2. Show Model.User");
-            System.out.println("3. Show All Model.User");
-            System.out.println("4. Remove Model.User");
-            System.out.println("5. Add Model.Book");
-            System.out.println("6. Show Model.Book");
-            System.out.println("7. Show All Model.Book");
-            System.out.println("8. Remove Model.Book");
-            System.out.println("9. Borrow Model.Book");
+            System.out.println("1. Add User");
+            System.out.println("2. Show User");
+            System.out.println("3. Show All User");
+            System.out.println("4. Remove User");
+            System.out.println("5. Add Book");
+            System.out.println("6. Show Book");
+            System.out.println("7. Show All Book");
+            System.out.println("8. Remove Book");
+            System.out.println("9. Borrow Book");
             System.out.println("10. Return the book");
             System.out.println("11. Show Loaned books");
-            System.out.println("12. Show Model.History Of Model.User");
-            System.out.println("13. Show Model.History Of Model.Book");
+            System.out.println("12. Show History Of User");
+            System.out.println("13. Show History Of Book");
             System.out.println("14. Exit");
             System.out.println("15. Extract name With 'i'");
             System.out.print("Please select the desired option: ");
             control = scanner.nextInt();
             switch (control){
                 case 1:
-                    System.out.print("Enter the Model.User's name: ");
+                    System.out.print("Enter the User's name: ");
                     String userName = scanner.next();
-                    System.out.print("Enter the Model.User's email: ");
+                    System.out.print("Enter the User's email: ");
                     String email = scanner.next();
                     System.out.print("Enter a password: ");
                     String password = scanner.next();
@@ -152,7 +152,7 @@ public class ControlOfTerminal {
 
                 case 13:
                     int ISBN2;
-                    System.out.print("Enter the ISBN of Model.Book: ");
+                    System.out.print("Enter the ISBN of Book: ");
                     ISBN2 = scanner.nextInt();
                     history.printHistoryOfBook(String.valueOf(ISBN2));
 

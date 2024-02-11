@@ -18,7 +18,7 @@ public class Lending {
         this.user = user;
         this.book = book;
         this.history = history;
-        lendingFile = new File("Information/Model.Lending.txt");
+        lendingFile = new File("Information/Lending.txt");
         try {
             lendingFile.createNewFile();
         } catch (IOException e) {
