@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,7 +18,7 @@ public class Lending {
         this.user = user;
         this.book = book;
         this.history = history;
-        lendingFile = new File("Information/Lending.txt");
+        lendingFile = new File("Information/Model.Lending.txt");
         try {
             lendingFile.createNewFile();
         } catch (IOException e) {
@@ -147,16 +149,6 @@ public class Lending {
         int end = str.indexOf(" " , start);
         String ISBN = str.substring(start , end);
         return ISBN;
-
-//        Scanner scanner = new Scanner(lendingFile);
-//        while (scanner.hasNext()){
-//            String line = scanner.nextLine();
-//            int start = line.indexOf("bookID:") + "bookID:".length();
-//            int end = line.indexOf(" " , start);
-//            String ISBN = line.substring(start , end);
-//            return ISBN;
-//        }
-//        return null;
     }
 
     private int numberOfBooksLoaned(String userID , String bookID) throws FileNotFoundException {
@@ -168,24 +160,9 @@ public class Lending {
             int end1 = line.indexOf(" " , start1);
             String checkUserID = line.substring(start1 , end1);
             if(checkUserID.equals(userID)){
-//                int start2 = line.indexOf("bookID:") + "bookID:".length();
-//                int end2 = line.indexOf(" " , start2);
-//                String checkBookID = line.substring(start2 , end2);
-//                if(checkBookID.equals(bookID))
                     count++;
             }
         }
         return count;
     }
-
-//    private String searchInformationOfUser(String userID) throws FileNotFoundException {
-//        Scanner scanner = new Scanner(user.getUserFile());
-//        while (scanner.hasNext()){
-//            String line = scanner.nextLine();
-//            boolean checkID = user.checkIdOfUser(line , Integer.valueOf(userID));
-//            if(checkID){
-//
-//            }
-//        }
-//    }
 }

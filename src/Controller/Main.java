@@ -1,3 +1,11 @@
+package Controller;
+
+import Controller.ControlOfTerminal;
+import Model.Book;
+import Model.History;
+import Model.Lending;
+import Model.User;
+
 import java.io.IOException;
 
 public class Main {

@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,7 +15,7 @@ public class History {
 
     public History(){
         try {
-        historyFile = new File("Information/History.txt");
+        historyFile = new File("Information/Model.History.txt");
         historyFile.createNewFile();
         }
         catch (Exception e){
@@ -65,7 +67,7 @@ public class History {
     public void addToHistory(String userID, String ISBN, boolean typeOfLend) throws IOException {  //if borrow the book typeOfLend = true , if return the book typeOfLend = false
         FileWriter fileWriter = new FileWriter(this.historyFile , true);
         if(typeOfLend == true)
-            fileWriter.write("Lending) ");
+            fileWriter.write("Model.Lending) ");
         else
             fileWriter.write("Take Back) ");
         fileWriter.write("userID:" + userID);

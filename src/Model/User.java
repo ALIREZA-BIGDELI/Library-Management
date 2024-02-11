@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -129,7 +131,7 @@ public class User {
         return false;
     }
 
-    void writeID() throws IOException {
+    public void writeID() throws IOException {
         FileWriter fileWriter = new FileWriter("Information/user_id.txt");
         fileWriter.write(String.valueOf(user_id));
         fileWriter.close();
